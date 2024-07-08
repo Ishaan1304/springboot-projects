@@ -3,6 +3,7 @@ package com.ishaan.UserManagementProject.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -25,7 +26,6 @@ public class Country {
 	
 	@OneToMany(mappedBy="country")
 	@JsonManagedReference
+	@JsonIgnore
 	List<State> states=new ArrayList<>();
-	
-	
 }

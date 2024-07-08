@@ -3,6 +3,7 @@ package com.ishaan.UserManagementProject.entities;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -29,6 +30,7 @@ public class State {
 	
 	@OneToMany(mappedBy="state")
 	@JsonManagedReference
+	@JsonIgnore
 	List<City> cities=new ArrayList<>();
 	
 	

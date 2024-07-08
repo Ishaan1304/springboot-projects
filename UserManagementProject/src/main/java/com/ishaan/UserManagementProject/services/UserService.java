@@ -13,16 +13,77 @@ public class UserService {
 	@Autowired
 	private UserDAO userDAO;
 	
-	public  User addUser(User user)
+	public User addUser(User user)
 	{
-		User result=this.userDAO.save(user);
-		return result;
+		User result=null;
+		try
+		{
+			result=this.userDAO.save(user);
+			return result;
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return result;
+			
+		}
 	}
 	
-	public  List<User> getAll()
+	public  List<User> getAllUsers()
 	{
-		List<User> ls = userDAO.findAll();
-		return ls;
+		List<User> result=null;
+		try
+		{
+			result=this.userDAO.findAll();
+			return result;
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return result;
+		}
+	}
+	
+	public  User getUserById(int id)
+	{
+		User result =null;
+		try
+		{
+			 result=this.userDAO.findById(id);
+			 return result;
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return result;
+		}
+	}
+	
+	public  User updateUser(User user,int id)
+	{
+		User result=null;
+		try
+		{
+			user.setId(id);
+			result = this.userDAO.save(user);
+			return result;
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return result;
+		}
+	}
+	
+	public  User deleteUser(int id)
+	{
+		User result=null;
+		try
+		{
+			result = this.userDAO.deleteById(id);
+			return result;
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return result;
+		}
+		
 	}
 	
 }

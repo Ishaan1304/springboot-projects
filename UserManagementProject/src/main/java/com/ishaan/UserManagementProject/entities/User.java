@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ import lombok.Data;
 public class User 
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 	private String firstName;
 	private String lastName;
@@ -34,33 +35,8 @@ public class User
 	private double salary;
 
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	List<Address> address=new ArrayList<>();
-	
+	List<Address> address=new ArrayList<>();	
 }
 
-
-
-
-/*
- * import com.fasterxml.jackson.annotation.JsonManagedReference; import
- * javax.persistence.*; import java.util.HashSet; import java.util.Set;
- * 
- * @Entity public class User {
- * 
- * @Id
- * 
- * @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
- * 
- * private String username; private String email;
- * 
- * // One-to-many relationship with Address
- * 
- * @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
- * 
- * @JsonManagedReference // This annotation manages the serialization of the
- * child side (Address) private Set<Address> addresses = new HashSet<>();
- * 
- * // Constructors, getters, and setters }
- */

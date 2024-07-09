@@ -103,8 +103,7 @@ public class StateController {
 			State result=this.stateService.deleteState(id);
 			System.out.println(result);
 			return ResponseEntity.ok().body(result);
-		}
-		catch(Exception e)
+		}catch(Exception e)
 		{
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

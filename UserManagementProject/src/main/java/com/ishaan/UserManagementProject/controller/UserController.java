@@ -1,7 +1,7 @@
 package com.ishaan.UserManagementProject.controller;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class UserController {
 		{
 			result=this.userService.addUser(user);
 			System.out.println(result);
-			return  ResponseEntity.of(Optional.of(result));
+			return  new ResponseEntity<User>(result, HttpStatus.CREATED);
 		}catch(Exception e)
 		{
 			e.printStackTrace();

@@ -1,9 +1,10 @@
 package com.ishaan.UserManagementProject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,21 +23,25 @@ public class Address {
     private int houseNumber;
     private String colonyName;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    //@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "id")
-    @JsonBackReference
+//    @JsonIgnore
+    @JsonBackReference(value="user-address")
     private User user;
     
     @ManyToOne
-    @JoinColumn(name="city_id")
+    @JoinColumn(name="city_id", referencedColumnName = "id")
     private City city;
     
     @ManyToOne
-    @JoinColumn(name="state_id")
+    @JoinColumn(name="state_id", referencedColumnName = "id")
+    @JsonBackReference(value="state-address")
     private State state;
     
     @ManyToOne
-    @JoinColumn(name="country_id")
+    @JoinColumn(name="country_id", referencedColumnName = "id")
+    @JsonBackReference(value="country-address")
     private Country country;
     
     

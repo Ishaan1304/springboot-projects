@@ -1,6 +1,6 @@
 package com.ishaan.UserManagementProject.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 
 import jakarta.persistence.Entity;
@@ -23,7 +23,6 @@ public class City {
 	
 	@ManyToOne
 	@JoinColumn(name="stateId")
-	@JsonBackReference
 	private State state;
 
 	@Override

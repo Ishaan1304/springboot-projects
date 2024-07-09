@@ -6,16 +6,16 @@ package com.ishaan.UserManagementProject.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Data;
 
 @Data
@@ -23,7 +23,7 @@ import lombok.Data;
 public class User 
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 	private String firstName;
 	private String lastName;
@@ -35,8 +35,34 @@ public class User
 	private double salary;
 
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	List<Address> address=new ArrayList<>();	
+	@Embedded
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true )
+	List<Address> address=new ArrayList<>();
+	
+	
+	
+	@PrePersist
+    @PreUpdate
+    private void prepareChildren() {
+        for (Address add : address) {
+            if (add.getUser() == null) {
+                add.setUser(this);
+            }
+        }
+    }
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
+				+ ", password=" + password + ", age=" + age + ", gender=" + gender + ", salary=" + salary;
+	}
+
+
+
+	
+	
+	
 }
 
